@@ -10,21 +10,35 @@ $(document).ready(function () {
   function fetchColor () {
     const url = 'https://css-colors-api.herokuapp.com/api/v1/colors/random'
 
-    // make API request using #.ajax()
-    $.ajax({
-      url: url,
-      type: 'GET'
+// axios instead of AJAX
+// when axios returns API data it stores all the returned data in a data field within an object. the other fields are API stats etc
+// objects from api are "response"
+    axios.get(url)
+    .then((response) => {
+      updateUi(response.data)
     })
-    .done((response) => {
-      console.log(response)
-      // get response from successful API call and
-      // pass response data to the updateUi() function
-      updateUi(response)
-    })
-    .fail((error) => {
+    .catch((error) => {
       console.log(error)
-      alert('an error occurred')
     })
+
+    // make API request using #.ajax()
+    // $.ajax({
+    //   url: url,
+    //   type: 'GET'
+    // })
+    // .done((response) => {
+    //   console.log(response)
+    //   // get response from successful API call and
+    //   // pass response data to the updateUi() function
+    //   updateUi(response)
+    // })
+    // .fail((error) => {
+    //   console.log(error)
+    //   alert('an error occurred')
+    // })
+
+
+
   }
 
   function updateUi (color) {
